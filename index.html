@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Year 1 DLP Mathematics Quiz - Topic 6.0 Measurement</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Lexend:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: #f0f9ff;
+        }
+
+        .font-fredoka {
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        .font-signature {
+            font-family: 'Great Vibes', cursive;
+        }
+
+        /* Certificate Print Layout Optimization */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #certificate-section, #certificate-section * {
+                visibility: visible;
+            }
+            #certificate-section {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                margin: 0;
+                padding: 20px;
+                box-shadow: none !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+
+        .certificate-border {
+            border: 10px double #1e40af;
+            background: #ffffff;
+            position: relative;
+        }
+
+        .certificate-border::before {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            right: 6px;
+            bottom: 6px;
+            border: 2px solid #93c5fd;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-800 flex flex-col justify-between">
+
+    <header class="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white shadow-lg no-print py-4 px-6">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-yellow-400 text-blue-900 rounded-2xl flex items-center justify-center font-bold text-xl shadow">
+                    <i class="fa-solid fa-ruler-combined"></i>
+                </div>
+                <div>
+                    <h1 class="font-fredoka text-xl md:text-2xl font-bold tracking-wide">Year 1 DLP Mathematics</h1>
+                    <p class="text-xs text-blue-100 font-medium">Topic 6.0: Measurement (Length, Mass & Volume)</p>
+                </div>
+            </div>
+            <span class="bg-blue-800/80 border border-blue-400 text-blue-100 text-xs px-3 py-1.5 rounded-full font-medium">
+                DLP Assessment
+            </span>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto w-full p-4 md:p-6 flex-grow">
+
+        <!-- SCREEN 1: Student Details Registration -->
+        <div id="screen-welcome" class="bg-white rounded-3xl shadow-xl p-6 md:p-10 border border-blue-100 text-center my-4">
+            <div class="w-20 h-20 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl shadow-inner">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <h2 class="font-fredoka text-2xl md:text-3xl font-bold text-blue-950 mb-2">Welcome to Measurement Quiz!</h2>
+            <p class="text-slate-600 mb-6 text-sm md:text-base max-w-lg mx-auto">
+                Test your knowledge in length, mass, and volume of liquid. Enter your details below to begin.
+            </p>
+
+            <form id="student-form" class="max-w-md mx-auto text-left space-y-4" onsubmit="startQuiz(event)">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Student's Full Name / Nama Murid *</label>
+                    <input type="text" id="student-name" required placeholder="e.g. ADAM HARITH BIN ZULKIFLI" 
+                        class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-slate-800 font-semibold uppercase">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Class / Kelas *</label>
+                    <input type="text" id="student-class" required placeholder="e.g. 1 GEMILANG" 
+                        class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-slate-800 font-semibold uppercase">
+                </div>
+                <div class="pt-4">
+                    <button type="submit" 
+                        class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-fredoka text-lg font-bold py-3.5 px-6 rounded-xl shadow-lg transform active:scale-95 transition flex items-center justify-center space-x-2">
+                        <span>Start Quiz</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </form>
+            
+            <div class="mt-8 grid grid-cols-3 gap-2 text-center text-xs text-slate-500 border-t border-slate-100 pt-5">
+                <div><i class="fa-solid fa-list-check text-blue-500 text-lg mb-1 block"></i> 20 MCQ Questions</div>
+                <div><i class="fa-solid fa-star text-amber-500 text-lg mb-1 block"></i> 100 Total Marks</div>
+                <div><i class="fa-solid fa-award text-emerald-500 text-lg mb-1 block"></i> E-Certificate</div>
+            </div>
+        </div>
+
+        <!-- SCREEN 2: Interactive Quiz Engine -->
+        <div id="screen-quiz" class="hidden space-y-6">
+            <!-- Student Header Info Bar -->
+            <div class="bg-blue-50 border border-blue-200 rounded-2xl p-4 flex flex-wrap justify-between items-center text-sm gap-2">
+                <div>
+                    <span class="text-slate-500 font-medium">Student:</span> <strong id="display-student-name" class="text-blue-900 font-bold uppercase">---</strong>
+                    <span class="mx-2 text-slate-300">|</span>
+                    <span class="text-slate-500 font-medium">Class:</span> <strong id="display-student-class" class="text-blue-900 font-bold uppercase">---</strong>
+                </div>
+                <div class="text-xs bg-white border border-blue-200 px-3 py-1 rounded-full font-bold text-blue-700 shadow-sm">
+                    5 Marks Per Question
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="bg-white rounded-2xl shadow-sm p-4 border border-slate-200">
+                <div class="flex justify-between items-center text-xs font-bold text-slate-600 mb-2">
+                    <span id="question-progress-text">Question 1 of 20</span>
+                    <span id="answered-count-text" class="text-blue-600">0 / 20 Answered</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden">
+                    <div id="progress-bar" class="bg-gradient-to-r from-blue-500 to-indigo-600 h-3 rounded-full transition-all duration-300" style="width: 5%;"></div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="bg-white rounded-3xl shadow-xl p-6 md:p-8 border border-slate-200">
+                <div class="flex items-center space-x-2 mb-4">
+                    <span id="category-badge" class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                        Category
+                    </span>
+                </div>
+                
+                <h3 id="question-title" class="text-lg md:text-xl font-bold text-slate-900 mb-6 leading-relaxed">
+                    Question text will appear here...
+                </h3>
+
+                <!-- Options Grid -->
+                <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Dynamic MCQ options will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Navigation Controls -->
+            <div class="flex justify-between items-center pt-2">
+                <button id="btn-prev" onclick="navigateQuestion(-1)" 
+                    class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold py-3 px-6 rounded-xl transition flex items-center space-x-2 disabled:opacity-40 disabled:cursor-not-allowed">
+                    <i class="fa-solid fa-chevron-left"></i>
+                    <span>Previous</span>
+                </button>
+
+                <button id="btn-next" onclick="navigateQuestion(1)" 
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-7 rounded-xl shadow-md transition flex items-center space-x-2">
+                    <span>Next</span>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+
+                <button id="btn-submit" onclick="submitQuiz()" 
+                    class="hidden bg-emerald-600 hover:bg-emerald-700 text-white font-fredoka font-bold py-3 px-8 rounded-xl shadow-lg transition flex items-center space-x-2">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>Submit Quiz</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- SCREEN 3: Results & Certificate -->
+        <div id="screen-result" class="hidden space-y-8">
+            <!-- Score Overview Card -->
+            <div class="bg-white rounded-3xl shadow-xl p-6 md:p-8 border border-slate-200 text-center no-print">
+                <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-3 text-2xl shadow-inner">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <h2 class="font-fredoka text-3xl font-bold text-slate-800 mb-1">Quiz Completed!</h2>
+                <p class="text-slate-500 text-sm mb-6">Here is your assessment summary for Topic 6.0 Measurement.</p>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto mb-6">
+                    <div class="bg-blue-50 border border-blue-100 p-4 rounded-2xl">
+                        <span class="text-xs text-blue-600 font-bold block uppercase">Total Score</span>
+                        <strong id="res-score" class="text-3xl font-bold text-blue-900">0</strong>
+                        <span class="text-xs text-slate-500">/ 100</span>
+                    </div>
+                    <div class="bg-emerald-50 border border-emerald-100 p-4 rounded-2xl">
+                        <span class="text-xs text-emerald-600 font-bold block uppercase">Correct</span>
+                        <strong id="res-correct" class="text-3xl font-bold text-emerald-700">0</strong>
+                        <span class="text-xs text-slate-500">/ 20</span>
+                    </div>
+                    <div class="bg-rose-50 border border-rose-100 p-4 rounded-2xl">
+                        <span class="text-xs text-rose-600 font-bold block uppercase">Incorrect</span>
+                        <strong id="res-wrong" class="text-3xl font-bold text-rose-700">0</strong>
+                        <span class="text-xs text-slate-500">/ 20</span>
+                    </div>
+                    <div class="bg-amber-50 border border-amber-100 p-4 rounded-2xl">
+                        <span class="text-xs text-amber-600 font-bold block uppercase">Grade</span>
+                        <strong id="res-grade" class="text-2xl font-bold text-amber-800">A</strong>
+                        <span id="res-status" class="text-xs block text-amber-600 font-medium">Excellent</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl shadow-md transition flex items-center space-x-2">
+                        <i class="fa-solid fa-print"></i>
+                        <span>Print Certificate / Cetak Sijil</span>
+                    </button>
+                    <button onclick="restartQuiz()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold px-6 py-3 rounded-xl transition flex items-center space-x-2">
+                        <i class="fa-solid fa-rotate-right"></i>
+                        <span>Try Again</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- E-CERTIFICATE AREA -->
+            <div id="certificate-section" class="bg-white p-2 md:p-6 rounded-3xl shadow-2xl">
+                <div class="certificate-border p-6 md:p-10 rounded-xl text-center relative overflow-hidden">
+                    
+                    <!-- Top Ribbons -->
+                    <div class="absolute top-4 left-4 text-blue-200 text-3xl"><i class="fa-solid fa-award"></i></div>
+                    <div class="absolute top-4 right-4 text-blue-200 text-3xl"><i class="fa-solid fa-award"></i></div>
+
+                    <!-- Certificate Header -->
+                    <div class="mb-4">
+                        <span class="text-xs font-bold tracking-widest text-blue-600 uppercase block mb-1">Official Assessment Certificate</span>
+                        <h2 class="font-fredoka text-2xl md:text-4xl font-bold text-blue-950 tracking-wide">CERTIFICATE OF ACHIEVEMENT</h2>
+                        <p class="font-fredoka text-lg md:text-xl text-amber-600 font-bold tracking-wider mt-0.5">SIJIL PENGHARGAAN</p>
+                    </div>
+
+                    <div class="w-32 h-1 bg-gradient-to-r from-blue-400 via-indigo-500 to-blue-400 mx-auto my-4 rounded-full"></div>
+
+                    <!-- Recipient Text -->
+                    <p class="text-slate-600 text-xs md:text-sm italic mb-1">This certificate is proudly presented to:</p>
+                    <h3 id="cert-student-name" class="font-fredoka text-2xl md:text-3xl font-bold text-blue-900 uppercase my-2 underline decoration-blue-300 decoration-2 underline-offset-4">
+                        STUDENT NAME HERE
+                    </h3>
+                    <p class="text-slate-700 text-xs md:text-sm font-semibold mb-4">
+                        Class: <span id="cert-student-class" class="font-bold text-slate-900">1 DLP</span>
+                    </p>
+
+                    <p class="max-w-xl mx-auto text-slate-600 text-xs md:text-sm leading-relaxed mb-6">
+                        For successfully completing the assessment for 
+                        <strong class="text-slate-800 block md:inline">YEAR 1 DLP MATHEMATICS (TOPIC 6.0 MEASUREMENT)</strong>.
+                    </p>
+
+                    <!-- Score Badge -->
+                    <div class="inline-flex items-center justify-center bg-blue-50 border-2 border-blue-200 rounded-2xl px-6 py-3 mb-8 shadow-sm space-x-6">
+                        <div class="text-center">
+                            <span class="text-[10px] text-blue-600 font-bold uppercase block">Marks Obtained</span>
+                            <span id="cert-score" class="font-fredoka text-2xl md:text-3xl font-bold text-blue-900">100 / 100</span>
+                        </div>
+                        <div class="h-8 w-px bg-blue-200"></div>
+                        <div class="text-center">
+                            <span class="text-[10px] text-blue-600 font-bold uppercase block">Grade & Achievement</span>
+                            <span id="cert-grade" class="font-fredoka text-lg md:text-xl font-bold text-emerald-700">A (Excellent)</span>
+                        </div>
+                    </div>
+
+                    <!-- Certificate Footer & Required Signature -->
+                    <div class="grid grid-cols-2 gap-4 items-end pt-6 border-t border-slate-200 text-left">
+                        <div>
+                            <p class="text-[11px] text-slate-500 font-medium">Date / Tarikh:</p>
+                            <p id="cert-date" class="text-xs md:text-sm font-bold text-slate-800">13 October 2026</p>
+                        </div>
+                        
+                        <!-- MANDATORY: Signature at bottom right -->
+                        <div class="text-right">
+                            <div class="font-signature text-3xl md:text-4xl text-blue-900 mb-0 leading-none">Cikgu Leela</div>
+                            <p class="text-xs md:text-sm font-bold text-slate-800 border-t border-slate-400 pt-1 inline-block min-w-[170px]">
+                                Disediakan Oleh: Cikgu Leela
+                            </p>
+                            <p class="text-[10px] text-slate-500 block">Mathematics Teacher / Guru Matematik</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Question Review Breakdown -->
+            <div class="bg-white rounded-3xl shadow-xl p-6 md:p-8 border border-slate-200 no-print">
+                <h3 class="font-fredoka text-xl font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                    <i class="fa-solid fa-list-check text-blue-600"></i>
+                    <span>Question Breakdown & Explanations</span>
+                </h3>
+                <div id="review-container" class="space-y-4">
+                    <!-- Dynamic review cards -->
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500 no-print">
+        <p>Year 1 DLP Mathematics Interactive Quiz • Topic 6.0: Measurement</p>
+        <p class="mt-1 font-semibold text-slate-700">Disediakan Oleh: Cikgu Leela</p>
+    </footer>
+
+    <script>
+        // 20 MCQ Questions based on KSSR Primary 1 DLP Curriculum (Topic 6.0 Measurement)
+        const quizQuestions = [
+            // Vocabulary & Relative Units (1 - 5)
+            {
+                category: "Vocabulary & Concepts",
+                question: "1. Which word is used to describe how tall a coconut tree is?",
+                options: ["A. Heavy", "B. Tall", "C. Full", "D. Light"],
+                correct: 1,
+                explanation: "We use 'tall' to describe height, such as a coconut tree."
+            },
+            {
+                category: "Vocabulary & Concepts",
+                question: "2. A feather is __________, while an elephant is heavy.",
+                options: ["A. Short", "B. Light", "C. Long", "D. Tall"],
+                correct: 1,
+                explanation: "'Light' describes mass that is small, opposite to heavy."
+            },
+            {
+                category: "Vocabulary & Concepts",
+                question: "3. A glass filled completely to the top with water is __________.",
+                options: ["A. Empty", "B. Half full", "C. Full", "D. Light"],
+                correct: 2,
+                explanation: "When filled completely to the top, liquid volume is 'full'."
+            },
+            {
+                category: "Vocabulary & Concepts",
+                question: "4. Compare a long pencil and a paper clip. The pencil is __________ than the paper clip.",
+                options: ["A. Shorter", "B. Longer", "C. Heavier", "D. Smaller"],
+                correct: 1,
+                explanation: "In terms of length, the pencil is longer than a paper clip."
+            },
+            {
+                category: "Vocabulary & Concepts",
+                question: "5. A water bottle with no water inside is __________.",
+                options: ["A. Full", "B. Half full", "C. Empty", "D. Heavy"],
+                correct: 2,
+                explanation: "When there is no liquid inside a container, it is 'empty'."
+            },
+
+            // Non-Standard Units Measurement (6 - 10)
+            {
+                category: "Non-Standard Units",
+                question: "6. The length of a textbook is equal to 6 paper clips end-to-end. What is the length of the textbook?",
+                options: ["A. 3 paper clips", "B. 6 paper clips", "C. 6 cups", "D. 12 paper clips"],
+                correct: 1,
+                explanation: "The non-standard unit measurement equals 6 paper clips."
+            },
+            {
+                category: "Non-Standard Units",
+                question: "7. An apple balances exactly 4 marbles on a scale. What is the mass of the apple?",
+                options: ["A. 2 marbles", "B. 3 marbles", "C. 4 marbles", "D. 8 marbles"],
+                correct: 2,
+                explanation: "The mass of the apple balances 4 marbles."
+            },
+            {
+                category: "Non-Standard Units",
+                question: "8. A jug of juice can fill 5 small glasses. What is the volume of juice in the jug?",
+                options: ["A. 5 glasses", "B. 2 glasses", "C. 10 glasses", "D. 1 glass"],
+                correct: 0,
+                explanation: "The volume of liquid in the jug equals 5 glasses."
+            },
+            {
+                category: "Non-Standard Units",
+                question: "9. Pencil A is 8 wooden blocks long. Pencil B is 5 wooden blocks long. Which pencil is longer?",
+                options: ["A. Pencil A", "B. Pencil B", "C. Both are equal", "D. Neither pencil"],
+                correct: 0,
+                explanation: "8 wooden blocks is longer than 5 wooden blocks."
+            },
+            {
+                category: "Non-Standard Units",
+                question: "10. Mass of Bag X = 7 erasers. Mass of Bag Y = 10 erasers. Bag Y is __________ than Bag X.",
+                options: ["A. Lighter", "B. Heavier", "C. Shorter", "D. Longer"],
+                correct: 1,
+                explanation: "10 erasers is more mass than 7 erasers, making Bag Y heavier."
+            },
+
+            // Comparing Objects & Units (11 - 15)
+            {
+                category: "Comparing Measurements",
+                question: "11. Container P holds 3 cups of water. Container Q holds 8 cups of water. Which container holds MORE liquid?",
+                options: ["A. Container P", "B. Container Q", "C. Both hold the same", "D. Neither"],
+                correct: 1,
+                explanation: "Container Q holds 8 cups, which is more than Container P (3 cups)."
+            },
+            {
+                category: "Comparing Measurements",
+                question: "12. Red ribbon is 12 matchsticks long. Blue ribbon is 9 matchsticks long. Blue ribbon is __________ than red ribbon.",
+                options: ["A. Longer", "B. Shorter", "C. Heavier", "D. Taller"],
+                correct: 1,
+                explanation: "9 matchsticks is less length than 12 matchsticks, so blue ribbon is shorter."
+            },
+            {
+                category: "Comparing Measurements",
+                question: "13. A melon balances 12 battery units. An orange balances 3 battery units. Which fruit is LIGHTER?",
+                options: ["A. Melon", "B. Orange", "C. Both have same mass", "D. Battery"],
+                correct: 1,
+                explanation: "3 battery units is less mass than 12 battery units, so the orange is lighter."
+            },
+            {
+                category: "Comparing Measurements",
+                question: "14. Glass X is half full. Glass Y is full. Glass Z is empty. Which glass has the MOST volume of liquid?",
+                options: ["A. Glass X", "B. Glass Y", "C. Glass Z", "D. Glass X and Z"],
+                correct: 1,
+                explanation: "Glass Y is full, so it contains the most volume of liquid."
+            },
+            {
+                category: "Comparing Measurements",
+                question: "15. A teacher's desk is 10 hand spans long. A student desk is 6 hand spans long. What is the total length of both desks?",
+                options: ["A. 4 hand spans", "B. 16 hand spans", "C. 10 hand spans", "D. 12 hand spans"],
+                correct: 1,
+                explanation: "Total length = 10 hand spans + 6 hand spans = 16 hand spans."
+            },
+
+            // Problem Solving (16 - 20)
+            {
+                category: "Problem Solving",
+                question: "16. Adam uses 4 ice cream sticks to measure his pencil box. Lina uses 7 ice cream sticks. Whose pencil box is longer?",
+                options: ["A. Adam's pencil box", "B. Lina's pencil box", "C. Both are the same", "D. Neither"],
+                correct: 1,
+                explanation: "Lina's pencil box measures 7 sticks, which is longer than Adam's 4 sticks."
+            },
+            {
+                category: "Problem Solving",
+                question: "17. Siti pours 2 cups of milk into Jug A and 5 cups into Jug B. How many cups of milk are there altogether?",
+                options: ["A. 3 cups", "B. 7 cups", "C. 10 cups", "D. 5 cups"],
+                correct: 1,
+                explanation: "Total cups of milk = 2 + 5 = 7 cups."
+            },
+            {
+                category: "Problem Solving",
+                question: "18. Box A balances 5 cubes. Box B balances 5 cubes. Box A and Box B have __________ mass.",
+                options: ["A. Different", "B. The same", "C. Light", "D. Heavy"],
+                correct: 1,
+                explanation: "Since both boxes balance 5 cubes each, they have the same mass."
+            },
+            {
+                category: "Problem Solving",
+                question: "19. A bottle contains 4 cups of water. Ali drinks 1 cup of water. How many cups of water are left?",
+                options: ["A. 5 cups", "B. 3 cups", "C. 2 cups", "D. 1 cup"],
+                correct: 1,
+                explanation: "Remaining water = 4 cups - 1 cup = 3 cups."
+            },
+            {
+                category: "Problem Solving",
+                question: "20. A bamboo stick is 15 paper clips long. A wooden stick is 8 paper clips long. How much longer is the bamboo stick?",
+                options: ["A. 7 paper clips", "B. 23 paper clips", "C. 8 paper clips", "D. 15 paper clips"],
+                correct: 0,
+                explanation: "Difference in length = 15 paper clips - 8 paper clips = 7 paper clips."
+            }
+        ];
+
+        // Global State Variables
+        let studentName = "";
+        let studentClass = "";
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(quizQuestions.length).fill(null);
+
+        function startQuiz(event) {
+            event.preventDefault();
+            studentName = document.getElementById('student-name').value.trim();
+            studentClass = document.getElementById('student-class').value.trim();
+
+            if (!studentName || !studentClass) return;
+
+            document.getElementById('display-student-name').innerText = studentName;
+            document.getElementById('display-student-class').innerText = studentClass;
+
+            document.getElementById('screen-welcome').classList.add('hidden');
+            document.getElementById('screen-quiz').classList.remove('hidden');
+
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = quizQuestions[currentQuestionIndex];
+
+            document.getElementById('question-progress-text').innerText = `Question ${currentQuestionIndex + 1} of ${quizQuestions.length}`;
+            document.getElementById('category-badge').innerText = q.category;
+            document.getElementById('question-title').innerText = q.question;
+
+            const answeredCount = userAnswers.filter(a => a !== null).length;
+            document.getElementById('answered-count-text').innerText = `${answeredCount} / ${quizQuestions.length} Answered`;
+
+            const progressPct = ((currentQuestionIndex + 1) / quizQuestions.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progressPct}%`;
+
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+
+            q.options.forEach((opt, idx) => {
+                const isSelected = userAnswers[currentQuestionIndex] === idx;
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.onclick = () => selectOption(idx);
+
+                btn.className = `w-full text-left p-4 rounded-2xl border-2 transition font-semibold flex items-center justify-between ${
+                    isSelected 
+                    ? 'border-blue-600 bg-blue-50 text-blue-900 shadow-md ring-2 ring-blue-300' 
+                    : 'border-slate-200 bg-white hover:border-blue-300 hover:bg-slate-50 text-slate-800'
+                }`;
+
+                btn.innerHTML = `
+                    <span>${opt}</span>
+                    <div class="w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                        isSelected ? 'border-blue-600 bg-blue-600 text-white' : 'border-slate-300'
+                    }">
+                        ${isSelected ? '<i class="fa-solid fa-check text-xs"></i>' : ''}
+                    </div>
+                `;
+                container.appendChild(btn);
+            });
+
+            document.getElementById('btn-prev').disabled = currentQuestionIndex === 0;
+
+            if (currentQuestionIndex === quizQuestions.length - 1) {
+                document.getElementById('btn-next').classList.add('hidden');
+                document.getElementById('btn-submit').classList.remove('hidden');
+            } else {
+                document.getElementById('btn-next').classList.remove('hidden');
+                document.getElementById('btn-submit').classList.add('hidden');
+            }
+        }
+
+        function selectOption(optionIndex) {
+            userAnswers[currentQuestionIndex] = optionIndex;
+            renderQuestion();
+        }
+
+        function navigateQuestion(direction) {
+            const nextIdx = currentQuestionIndex + direction;
+            if (nextIdx >= 0 && nextIdx < quizQuestions.length) {
+                currentQuestionIndex = nextIdx;
+                renderQuestion();
+            }
+        }
+
+        function submitQuiz() {
+            const unanswered = userAnswers.filter(a => a === null).length;
+            if (unanswered > 0) {
+                if (!confirm(`You still have ${unanswered} unanswered question(s). Are you sure you want to submit?`)) {
+                    return;
+                }
+            }
+
+            let correctCount = 0;
+            userAnswers.forEach((ans, idx) => {
+                if (ans === quizQuestions[idx].correct) {
+                    correctCount++;
+                }
+            });
+
+            const score = correctCount * 5; // 20 questions x 5 marks = 100
+            const wrongCount = quizQuestions.length - correctCount;
+
+            let grade = "A";
+            let statusText = "Excellent (Cemerlang)";
+            if (score >= 80) { grade = "A"; statusText = "Excellent (Cemerlang)"; }
+            else if (score >= 60) { grade = "B"; statusText = "Good (Baik)"; }
+            else if (score >= 40) { grade = "C"; statusText = "Satisfactory (Memuaskan)"; }
+            else { grade = "D"; statusText = "Needs Improvement (Perlu Usaha)"; }
+
+            // Summary UI
+            document.getElementById('res-score').innerText = score;
+            document.getElementById('res-correct').innerText = correctCount;
+            document.getElementById('res-wrong').innerText = wrongCount;
+            document.getElementById('res-grade').innerText = grade;
+            document.getElementById('res-status').innerText = statusText;
+
+            // Certificate Details
+            document.getElementById('cert-student-name').innerText = studentName;
+            document.getElementById('cert-student-class').innerText = studentClass;
+            document.getElementById('cert-score').innerText = `${score} / 100`;
+            document.getElementById('cert-grade').innerText = `${grade} (${statusText})`;
+            
+            const today = new Date();
+            const dateStr = today.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+            document.getElementById('cert-date').innerText = dateStr;
+
+            renderReviewCards();
+
+            document.getElementById('screen-quiz').classList.add('hidden');
+            document.getElementById('screen-result').classList.remove('hidden');
+
+            confetti({
+                particleCount: 120,
+                spread: 80,
+                origin: { y: 0.6 }
+            });
+        }
+
+        function renderReviewCards() {
+            const container = document.getElementById('review-container');
+            container.innerHTML = '';
+
+            quizQuestions.forEach((q, idx) => {
+                const userAns = userAnswers[idx];
+                const isCorrect = userAns === q.correct;
+
+                const card = document.createElement('div');
+                card.className = `p-4 rounded-2xl border ${
+                    isCorrect ? 'bg-emerald-50/60 border-emerald-200' : 'bg-rose-50/60 border-rose-200'
+                }`;
+
+                const userAnsText = userAns !== null ? q.options[userAns] : "Not Answered";
+                const correctAnsText = q.options[q.correct];
+
+                card.innerHTML = `
+                    <div class="flex items-start justify-between mb-2">
+                        <span class="font-bold text-sm text-slate-800">${q.question}</span>
+                        <span class="text-xs px-2.5 py-1 rounded-full font-bold ${
+                            isCorrect ? 'bg-emerald-200 text-emerald-900' : 'bg-rose-200 text-rose-900'
+                        }">
+                            ${isCorrect ? '+5 Marks' : '0 Marks'}
+                        </span>
+                    </div>
+                    <div class="text-xs space-y-1 text-slate-700">
+                        <p><strong>Your Answer:</strong> <span class="${isCorrect ? 'text-emerald-700 font-semibold' : 'text-rose-700 font-semibold'}">${userAnsText}</span></p>
+                        ${!isCorrect ? `<p><strong>Correct Answer:</strong> <span class="text-emerald-700 font-semibold">${correctAnsText}</span></p>` : ''}
+                        <p class="text-slate-500 italic mt-1"><i class="fa-solid fa-circle-info me-1"></i> ${q.explanation}</p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers = new Array(quizQuestions.length).fill(null);
+            document.getElementById('screen-result').classList.add('hidden');
+            document.getElementById('screen-welcome').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
